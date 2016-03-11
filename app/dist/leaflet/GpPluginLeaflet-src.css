@@ -1,0 +1,1874 @@
+/*!
+ * @brief Geoportal Extension for Leaflet
+ *
+ * This software is released under the licence CeCILL-B (Free BSD compatible)
+ * @see http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt
+ * @see http://www.cecill.info/licences/Licence_CeCILL-B_V1-fr.txt
+ * @see http://www.cecill.info/
+ *
+ * copyright CeCILL-B
+ * copyright IGN
+ * @author IGN 
+ * @version 0.1.0
+ * @date 2016-03-10
+ *
+ */
+/* Widgets : general */
+
+.GPwidget {
+  position: absolute;
+  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+  font-size: 13px;
+  color: #333;
+  overflow: hidden;
+}
+
+.GPwidget input[type='text'],
+.GPwidget input[type='button'] {
+  -webkit-appearance: none;
+  color: #333333;
+}
+
+.GPwidget input[type="checkbox"] {
+  display: none;
+}
+
+.GPwidget select {
+  padding-left: 3px;
+  border-radius: 3px;
+}
+
+.GPwidget form {
+  margin-bottom: 0;
+}
+
+.GPwidget * {
+  box-sizing: border-box;
+  background-repeat: no-repeat;
+}
+
+/* General panels */
+
+.GPpanel {
+  background-color: #FFF;
+}
+
+.GPpanelHeader {
+  position: relative;
+  width: 100%;
+}
+
+.GPpanelTitle {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+
+.GPpanelClose {
+  position: absolute;
+  cursor: pointer;
+}
+
+/* Showing/hiding advanced panels */
+
+#GPadvancedToolsPanel {
+  position: absolute;
+  top: 100px;
+}
+
+.GPshowAdvancedToolPicto {
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.GPshowAdvancedToolOpen {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+}
+
+.GPadvancedToolsPanelVisible,
+.GPadvancedToolVisible {
+  display: block;
+}
+
+.GPadvancedToolsPanelHidden,
+.GPadvancedToolHidden {
+  display: none;
+}
+
+/* Flex inputs */
+
+.GPflexInput {
+  display: flex;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out, margin 0.3s ease-out;
+}
+
+.GPflexInput > * {
+  display: block;
+  height: 28px;
+  line-height: 26px;
+  border: 1px solid #999;
+  border-radius: 0;
+}
+
+.GPflexInput *:not(:last-child) {
+  border-right:none;
+}
+
+.GPflexInput *:first-child {
+  border-radius: 3px 0 0 3px;
+}
+
+.GPflexInput *:last-child {
+  border-radius: 0 3px 3px 0;
+}
+
+.GPflexInput > *:not(input) {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.GPflexInput > input {
+  flex: 1;
+  padding: 0 5px;
+  min-width: 0;
+}
+
+.GPflexInput > select {
+  flex: 1;
+  padding-right: 7px;
+}
+
+.GPflexInput > label {
+  background-color:  #F2F2F2;
+  color: #666;
+  padding-left: 7px;
+  padding-right: 9px;
+  cursor: pointer;
+}
+
+/* Particular inputs */
+
+.GPinputSelect {
+  display: block;
+  height: 28px;
+  line-height: 26px;
+  margin: auto;
+  border: 1px solid #999;
+  color: #333;
+  cursor: pointer;
+}
+
+input.GPinputSubmit {
+  display: block;
+  width: 80px;
+  margin: auto;
+  height: 28px;
+  line-height: 26px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 3px;
+  font-family: "Helvetica Neue",Arial,Helvetica,sans-serif;
+  color: #FFF;
+  font-weight: bold;
+  opacity: 0.8;
+  transition: opacity 0.2s ease-out;
+  cursor: pointer;
+}
+
+input.GPinputSubmit:hover {
+  opacity: 1;
+}
+
+/* Autocomplete/geocode results */
+
+.GPautoCompleteList,
+.GPadvancedAutoCompleteList {
+  z-index: 2;
+  display: none;
+  position: absolute;
+  max-height: 140px;
+  background-color: #FFF;
+  border: 1px solid #999;
+  overflow-y: hidden;
+}
+
+.GPadvancedAutoCompleteList {
+  width: calc(100% - 57px);
+  border-top: none;
+  font-size: 0.9em;
+}
+
+.GPautoCompleteProposal {
+  width: 100%;
+  height: 28px;
+  line-height: 16px;
+  padding: 6px 10px;
+  color: #5E5E5E;
+  font-size: 1.0em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow:ellipsis;
+  cursor: pointer;
+}
+
+.GPautoCompleteProposal:hover {
+  color: #000000;
+  background-color: #CEDBEF
+}
+
+/* Showing additional hidden options */
+
+.GPshowMoreOptions {
+  display: block;
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  transition: transform 0.5s ease-out 0s;
+}
+
+input[type="checkbox"]:checked + .GPshowMoreOptions {
+  transform: rotateX(180deg);
+}
+
+/* ISOCHRON */
+
+/* General panels */
+
+#GPisochronPanel {
+  top: 100px;
+  width: 280px;
+}
+
+/* Isochron form */
+
+#GPisochronForm {
+  padding: 15px;
+}
+
+.GPisochronFormMini {
+  max-height: 58px;
+}
+
+.GPisochronOriginVisible {
+  display: block;
+}
+
+.GPisochronOriginHidden {
+  display: none;
+}
+
+.GPisochronOriginPointerImg {
+  width: 28px;
+  background-color: #F2F2F2;
+  cursor: pointer;
+}
+
+#GPisochronOriginPointer + .GPisochronOriginPointerImg {
+  background-position: -1px -1px;
+}
+
+#GPisochronOriginPointer:checked + .GPisochronOriginPointerImg {
+  background-position: -29px -1px;
+}
+
+input#GPisochronSubmit {
+  margin-top: 5px;
+}
+
+/* Alternative choice */
+
+#GPisochronChoice {
+  display: flex;
+  width: 160px;
+  justify-content: space-between;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.GPisochronChoiceAlt input {
+  display: none;
+}
+
+.GPisochronChoiceAltImg {
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: auto;
+  cursor: pointer;
+}
+
+#GPisochronChoiceAltChron + .GPisochronChoiceAltImg {
+  background-position: -56px 0;
+}
+
+#GPisochronChoiceAltChron:checked + .GPisochronChoiceAltImg {
+  background-position: -84px 0;
+}
+
+#GPisochronChoiceAltDist + .GPisochronChoiceAltImg {
+  background-position: -112px 0;
+}
+
+#GPisochronChoiceAltDist:checked + .GPisochronChoiceAltImg {
+  background-position: -140px 0;
+}
+
+.GPisochronChoiceAlt span {
+  cursor: pointer;
+  display:block;
+  color: #999;
+}
+
+.GPisochronValueHidden {
+  display: none;
+}
+
+#GPisochronValueChron,
+#GPisochronValueDist {
+  width: 220px;
+  margin: auto;
+}
+
+/* Mode choice */
+
+#GPisochronModeChoice {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+
+.GPisochronModeLabel {
+  display: block;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+#GPisochronTransportChoice input {
+  display: none;
+}
+
+.GPisochronTransportImg {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+#GPisochronTransportCar + .GPisochronTransportImg {
+  background-position: -168px 0;
+  margin-left: 21px;
+  margin-right: 10px;
+}
+
+#GPisochronTransportCar:checked + .GPisochronTransportImg {
+  background-position: -196px 0;
+}
+
+#GPisochronTransportPedestrian + .GPisochronTransportImg {
+  background-position: -224px 0;
+}
+
+#GPisochronTransportPedestrian:checked + .GPisochronTransportImg {
+  background-position: -252px 0;
+}
+
+#GPisochronDirectionSelect {
+  width: 80px;
+}
+/* LAYER SWITCHER */
+
+#GPlayerSwitcher {
+  font-size: 11px;
+  overflow: visible;
+}
+
+#GPlayerSwitcher [draggable] {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  /* Required to make elements draggable in old WebKit */
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+/* Manage opening of the components through hiden checkboxes */
+
+#GPlayerSwitcher input[type="checkbox"] + div,
+#GPlayerSwitcher input[type="checkbox"] + label + div {
+  max-height: 0px;
+}
+
+#GPlayerSwitcher label {
+  display: block;
+}
+
+/* Showing/hiding layers list */
+
+#GPshowLayersListPicto {
+  position: relative;
+  float: right;
+  display: block;
+  opacity: 1;
+  transition: opacity 0.5s ease-out 0s, box-shadow  0.5s ease-out 0s, border  0.5s ease-out 0s, border-radius  0.5s ease-out 0s;
+  cursor: pointer;
+}
+
+#GPshowLayersListOpen,
+#GPshowLayersListClose {
+  position: absolute;
+  display: block;
+  transition: border-radius 0.5s ease-out 0s, opacity 0.5s ease-out 0s;
+}
+
+#GPshowLayersListOpen {
+  background-position: 0 0;
+  opacity: 1;
+}
+
+#GPshowLayersListClose {
+  opacity: 0;
+}
+
+#GPlayerSwitcher input[type="checkbox"]:checked + div + #GPshowLayersListPicto {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#GPlayerSwitcher input[type="checkbox"]:checked + div + #GPshowLayersListPicto #GPshowLayersListClose {
+  opacity: 1;
+}
+
+/* Layers list */
+
+#GPlayersList {
+  position: relative;
+  width: 180px;
+  border-bottom-right-radius: 0;
+  opacity: 0;
+  overflow: auto;
+  transition: max-height 0.5s ease-out 0s, opacity 0.5s ease-out 0.25s;
+}
+
+#GPlayerSwitcher input[type="checkbox"]:checked + #GPlayersList {
+  max-height: 232px;
+  opacity: 1;
+  transition: max-height 0.5s ease-in 0s, opacity 0.25s ease-in 0s;
+}
+
+/* Layer : general */
+
+.GPlayerSwitcher_layer {
+  position: relative;
+  top: 0;
+  background-color: #FFF;
+  border-bottom: 1px dotted #CCC;
+  overflow: hidden;
+}
+
+#GPlayersList .GPlayerSwitcher_layer:last-child {
+  border-bottom: none;
+}
+
+.GPlayerBasicTools,
+.GPlayerAdvancedTools {
+  position: relative;
+  width: 100%;
+  height: 28px;
+}
+
+.GPlayerVisibility,
+.GPlayerInfo,
+.GPlayerInfoOpened,
+.GPlayerRemove {
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+.GPlayerVisibility,
+.GPlayerName,
+.GPlayerInfo,
+.GPlayerInfoOpened,
+.GPlayerRemove,
+.GPlayerOpacity,
+.GPlayerOpacityValue {
+  position: absolute;
+  top: 0;
+}
+
+.GPghostLayer {
+  opacity: 0;
+}
+
+/* Layer basic tools */
+
+.GPlayerBasicTools {
+  background-color: #FFF;
+}
+
+.GPlayerVisibility {
+  left: 0;
+  background-position: -28px 0;
+}
+
+input[type="checkbox"]:checked + .GPlayerVisibility {
+  background-position: 0 0;
+}
+
+.GPlayerName {
+  left: 28px;
+  width: calc(100% - 56px);
+  line-height: 28px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 4px;
+  cursor: move;
+}
+
+.outOfRange .GPlayerName {
+  color: #AAA;
+}
+
+/* Showing layer advanced tools */
+
+.GPshowLayerAdvancedTools {
+  top: 0;
+  right: 0;
+  background-position: -112px 0;
+}
+
+.GPlayerAdvancedTools {
+  display: block;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s ease-out 0s, opacity 0.5s ease-out 0s;
+}
+
+#GPlayerSwitcher input[type="checkbox"]:checked + label + .GPlayerAdvancedTools {
+  max-height: 28px;
+  opacity: 1;
+}
+
+/* Layer advanced tools */
+
+.GPlayerInfo {
+  left: 0;
+  background-position: -55px 0;
+}
+
+.GPlayerInfoOpened {
+  left: 0;
+  background-position: -83px 0;
+}
+
+.GPlayerOpacity {
+  left: 28px;
+  width: calc(100% - 100px);
+  height: 28px;
+  padding-left: 8px;
+}
+
+.GPlayerOpacityValue {
+  width: 32px;
+  left: calc(100% - 60px);
+  line-height: 28px;
+  font-size: 10px;
+  font-style: italic;
+  cursor: default;
+}
+
+.GPlayerRemove {
+  right: 0;
+  background-position: -140px 0;
+}
+
+/* Opacity slider : general */
+
+.GPlayerOpacity input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.GPlayerOpacity input[type="range"]:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+/* Opacity slider : Chrome, Safari, Opera */
+
+.GPlayerOpacity input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 3px;
+}
+
+.GPlayerOpacity input[type="range"]::-webkit-slider-thumb:before {
+  position: absolute;
+  top: 0;
+  right: 50%;
+  left: -200px;
+  height: 3px;
+  pointer-events: none;
+}
+
+.GPlayerOpacity input[type="range"]::-webkit-slider-thumb {
+  width: 9px;
+  height: 17px;
+  -webkit-appearance: none;
+  border: 2px solid #FFF;
+  background-color: #505050;
+  position: relative;
+  top: -7px;
+}
+
+/* Opacity slider : Firefox */
+
+.GPlayerOpacity input[type="range"]::-moz-range-track {
+  width: 80px;
+  height: 3px;
+}
+
+.GPlayerOpacity input[type="range"]::-moz-range-thumb {
+  width: 5px;
+  height: 13px;
+  border: 2px solid #FFF;
+  border-radius: 0;
+  box-shadow: 0;
+  background-color: #505050;
+  position: relative;
+}
+
+/* Opacity slider : IE */
+
+.GPlayerOpacity input[type="range"]::-ms-track {
+  border: 0;
+  border-color: transparent;
+  border-radius: 0;
+  border-width: 0;
+  color: transparent;
+  height: 3px;
+  width: 80px;
+}
+
+.GPlayerOpacity input[type="range"]::-ms-fill-lower,
+.GPlayerOpacity input[type="range"]::-ms-fill-upper {
+  background: transparent;
+  border-radius: 0;
+}
+
+.GPlayerOpacity input[type="range"]::-ms-thumb {
+  width: 5px;
+  height: 13px;
+  border: 2px solid #FFF;
+  background-color: #505050;
+}
+
+.GPlayerOpacity input[type="range"]::-ms-tooltip {
+  display: none;
+}
+
+/* Layer info panel */
+
+#GPlayerInfoPanel {
+  position: absolute;
+  top: 0;
+  overflow-y: hidden;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.GPlayerInfoPanelOpened {
+  display: block;
+}
+
+.GPlayerInfoPanelClosed {
+  display: none;
+}
+
+#GPlayerInfoContent {
+  position: relative;
+  width: 280px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#GPlayerInfoTitle {
+  width: calc(100% - 52px);
+  margin: auto;
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+#GPlayerInfoQuicklook {
+  position: absolute;
+  top: -2px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+#GPlayerInfoClose {
+  position: absolute;
+  top: -8px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+#GPlayerInfoDescription {
+  font-size: 0.9em;
+}
+
+.GPlayerInfoSubtitle {
+  padding-left: 35px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.GPlayerInfoLink,
+.GPlayerInfoPopup {
+  line-height: 20px;
+  padding-left: 23px; 
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  color: #999999;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.GPlayerInfoLink {
+  background-position: 0 -20px;
+}
+
+.GPlayerInfoLink:hover,
+.GPlayerInfoPopup:hover {
+  color: #333;
+}
+
+.GPlayerInfoLink a,
+.GPlayerInfoLink a:visited
+.GPlayerInfoLink a:focus
+.GPlayerInfoLink a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+/* MOUSE POSITION */
+
+/* Showing/hiding mouse position panel */
+
+#GPshowMousePositionPicto {
+  display: inline-block;
+}
+
+#GPshowMousePosition + label {
+  display: block;
+}
+
+#GPshowMousePosition:checked + label {
+  display: none;
+}
+
+#GPshowMousePosition + label + div {
+  display: none;
+}
+
+#GPshowMousePosition:checked + label + div {
+  display: block;
+}
+
+/* General panels */
+
+#GPmousePositionPanel {
+  width: 210px;
+  overflow: hidden;
+}
+
+/* Basic infos */
+
+#GPmousePositionBasicPanel {
+  padding: 10px 15px;
+}
+
+.GPmousePositionLabel,
+.GPmousePositionCoords {
+  display: inline-block;
+  line-height: 20px;
+}
+
+.GPmousePositionLabel {
+  width: 80px;
+  font-weight: bold;
+}
+
+.GPmousePositionCoords {
+  width: 90px;
+}
+
+/* Showing settings */
+
+.GPshowMousePositionSettingsPicto {
+  top: 79px;
+  right: 0;
+}
+
+#GPmousePositionSettings {
+  display: block;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s ease-out 0s, opacity 0.5s ease-out 0s;
+}
+
+#GPmousePosition input[type="checkbox"]:checked + label + #GPmousePositionSettings {
+  max-height: 95px;
+  opacity: 1;
+}
+
+/* Settings */
+
+#GPmousePositionSettings {
+  height: 95px;
+  padding-left: 0 15px;
+  overflow: hidden;
+}
+
+.GPmousePositionSettingsLabel {
+  display: block;
+  margin: auto;
+  text-align: center;
+  font-weight: bold;
+}
+
+.GPmousePositionSettingsSelect {
+  width: 160px;
+  margin-top: 5px;
+}
+
+/* Map center localisation */
+
+#GPmapCenter {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  margin-top: -25px;
+  margin-left: -25px;
+}
+
+#GPmapCenter.GPmapCenterVisible {
+  display: block;
+}
+
+/* REVERSE GEOCODING */
+
+/* General panels */
+
+#GPreverseGeocodingPanel {
+  top: 100px;
+  width: 280px;
+}
+
+/* Showing/hiding filters */
+
+#GPshowReverseGeocodingFilters {
+  display: none;
+}
+
+.GPshowReverseGeocodingFiltersPicto {
+  top: 80px;
+  right: 0;
+}
+
+#GPshowReverseGeocodingFilters + label + #GPreverseGeocodingFilters {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+#GPshowReverseGeocodingFilters:checked + label + #GPreverseGeocodingFilters {
+  display: block;
+  max-height: 500px;
+  opacity: 1;
+  margin-bottom: 10px;
+}
+
+/* Search panel */
+
+#GPreverseGeocodingForm {
+  position: relative;
+  max-height: 270px;
+  overflow-y: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+}
+
+#GPreverseGeocodingFilters {
+  overflow: hidden;
+  margin-top: 15px;
+  transition: max-height 0.5s ease-in-out 0.25s, opacity 0.5s ease-in-out 0.25s, margin 0.3s ease-in-out 0.25s;
+}
+
+.GPreverseGeocodingFiltersLabel {
+  display: block;
+  margin: auto;
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.GPreverseGeocodingCodeLabel,
+.GPreverseGeocodingFilterLabel {
+  max-width: 105px;
+}
+
+.GPreverseGeocodingCodeLabel,
+.GPreverseGeocodingCode {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.GPreverseGeocodingFilterLabel,
+.GPreverseGeocodingFilterInput {
+  margin-bottom: 5px;
+}
+
+input#GPreverseGeocodingSubmit {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+/* ROUTE */
+
+/* Showing/hiding mouse position panel */
+
+#GPshowRoutePicto {
+  display: inline-block;
+}
+
+#GPshowRoute + label {
+  display: block;
+}
+
+#GPshowRoute:checked + label {
+  display: none;
+}
+
+#GPshowRoute + label + div {
+  display: none;
+}
+
+#GPshowRoute:checked + label + div {
+  display: block;
+}
+
+/* General panels */
+
+#GProutePanel {
+  top: 100px;
+  width: 320px;
+  overflow: visible;
+}
+
+.GProuteComponentHidden {
+  display: none;
+}
+
+/* Route form */
+
+#GProuteForm {
+  padding: 15px;
+}
+
+.GProuteFormMini {
+  max-height: 58px;
+  overflow: hidden;
+  transform: translateY(-5px);
+}
+
+.GProuteStageFlexInput {
+  max-height: 28px;
+  opacity: 1;
+}
+
+.GProuteStageFlexInputHidden {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+#GProuteForm > .GProuteStageFlexInput {
+  margin-top: 5px;
+}
+
+#GProuteForm > .GProuteStageFlexInputHidden {
+  margin-top: 0;
+}
+
+#GProuteForm > .GProuteStageFlexInput:first-child {
+  margin-top: 0;
+  transition: none;
+}
+
+#GProuteForm.GProuteFormMini > .GProuteStageFlexInput:first-child {
+  margin-top: 5px;
+}
+
+.GProuteOriginVisible {
+  display: block;
+}
+
+.GProuteOriginHidden {
+  display: none;
+}
+
+label.GProuteOriginPointerImg[id*="GProuteOriginPointerImg"] {
+  width: 28px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-right: 1px solid #999;
+}
+
+input[id*="GProuteOriginPointer"] + .GProuteOriginPointerImg {
+  background-position: -1px -1px;
+}
+
+input[id*="GProuteOriginPointer"]:checked + .GProuteOriginPointerImg {
+  background-position: -29px -1px;
+}
+
+.GProuteStageRemove,
+#GProuteStageAdd {
+  width: 28px;
+  border: none;
+  cursor: pointer;
+}
+
+.GProuteFormMini .GProuteStageRemove,
+.GProuteFormMini #GProuteStageAdd {
+  display: none;
+}
+
+.GProuteStageRemove {
+  background-position: -84px 0;
+}
+
+#GProuteStageAdd {
+  background-position: -56px 0;
+}
+
+/* Mode choice */
+
+#GProuteModeChoice {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0;
+}
+
+.GProuteModeLabel {
+  display: block;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+#GProuteTransportChoice input {
+  display: none;
+}
+
+.GProuteTransportImg {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+}
+
+#GProuteTransportCar + .GProuteTransportImg {
+  background-position: -112px 0;
+  margin-left: 21px;
+  margin-right: 10px;
+}
+
+#GProuteTransportCar:checked + .GProuteTransportImg {
+  background-position: -140px 0;
+}
+
+#GProuteTransportPedestrian + .GProuteTransportImg {
+  background-position: -168px 0;
+}
+
+#GProuteTransportPedestrian:checked + .GProuteTransportImg {
+  background-position: -196px 0;
+}
+
+#GProuteComputationSelect {
+  width: 100px;
+}
+
+/* Showing/hiding exclusions */
+
+#GPshowRouteExclusions {
+  display: none;
+}
+
+.GPshowRouteExclusionsPicto {
+  top: 185px;
+  right: 0;
+  transition: transform 0.5s ease-out 0s, top 0.3s ease-out 0s;
+}
+
+#GPshowRouteExclusions + label + #GProuteExclusions {
+  max-height: 0;
+  opacity: 0;
+  margin-bottom: 0;
+}
+
+#GPshowRouteExclusions:checked + label + #GProuteExclusions {
+  display: block;
+  max-height: 60px;
+  opacity: 1;
+  margin-bottom: 15px;
+}
+
+/* Exclusions */
+
+#GProuteExclusions {
+  transition: max-height 0.5s ease-in-out 0.25s, opacity 0.5s ease-in-out 0.25s, margin 0.3s ease-in-out 0.25s;
+  overflow: hidden;
+}
+
+.GProuteExclusionsLabel {
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.GProuteExclusionsOptions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.GProuteExclusionsOption {
+  display: block;
+  height: 28px;
+  line-height: 26px;
+  color: #A77;
+  background-color: #FEE;
+  padding-left: 28px;
+  padding-right: 5px;
+  border: 1px solid #A77;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+input:checked + .GProuteExclusionsOption {
+  background-color: #EFE;
+  background-position: 0 -28px;
+  color: #797;
+  border: 1px solid #797;
+}
+
+/* Result panel */
+
+#GProuteResultsPanel {
+  padding: 15px;
+}
+
+.GProuteResultStage {
+  display: flex;
+}
+
+#GProuteResultsStages {
+  margin-bottom: 15px;
+}
+
+.GProuteResultStageLabel,
+.GProuteResultStageValue,
+.GProuteResultsValueLabel,
+#GProuteResultsValueDist,
+#GProuteResultsValueTime {
+  display: inline-block;
+  line-height: 18px;
+}
+
+.GProuteResultStageLabel,
+.GProuteResultsValueLabel {
+  color: #666;
+}
+
+.GProuteResultStageLabel {
+  width: 60px;
+}
+
+.GProuteResultsValueLabel {
+  width: 65px;
+}
+
+.GProuteResultStageValue {
+  flex: 1;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#GProuteResultsValueDist,
+#GProuteResultsValueTime {
+  width: 60px;
+  font-weight: bold;
+}
+
+#GProuteResults {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+select#GProuteResultsComputationSelect {
+  width: 100px;
+}
+
+#GProuteResultsNew {
+  width: 28px;
+  height: 28px;
+  border-radius: 3px;
+  opacity: 0.8;
+  background-position: -224px 0;
+  transition: opacity 0.2s ease-out;
+  cursor: pointer;
+}
+
+#GProuteResultsNew:hover {
+  opacity: 1;
+}
+
+/* Results details header */
+
+.GPfakeBorder {
+  display: inline-block;
+  height: 14px;
+  width: 60px;
+  border-bottom: 1px solid #999;
+}
+
+.GPfakeBorderLeft {
+  margin-left:15px;
+}
+
+#GProuteResultsShowDetails + label,
+#GProuteResultsShowDetails + label + label {
+  width: 130px;
+  line-height: 28px;
+  vertical-align: top;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s ease-out;
+}
+
+#GProuteResultsShowDetails + label,
+#GProuteResultsShowDetails:checked + label + label {
+  display: inline-block;
+}
+
+#GProuteResultsShowDetails:checked + label,
+#GProuteResultsShowDetails + label + label {
+  display: none;
+}
+
+#GProuteResultsShowDetails + label + label + div + #GProuteResultsDetails {
+  max-height: 0;
+  opacity: 0;
+}
+
+#GProuteResultsShowDetails:checked + label + label + div + #GProuteResultsDetails {
+  max-height: 200px;
+  opacity: 1;
+}
+
+#GProuteResultsDetails {
+  overflow-y: auto;
+  transition: max-height 0.5s ease-in-out 0.25s, opacity 0.5s ease-in-out 0.25s;
+}
+
+.GProuteResultsDetailsNumber,
+.GProuteResultsDetailsInstruction {
+  display: inline-block;
+  margin-top: 4px;
+  line-height: 16px;
+  color: #666;
+}
+
+.GProuteResultsDetailsNumber {
+  font-weight: bold;
+  width: 22px;
+  text-align: right;
+  vertical-align: top;
+}
+
+.GProuteResultsDetailsInstruction {
+  width: calc(100% - 30px);
+  padding-left: 5px;
+}
+
+/* SEARCH ENGINE */
+
+#GPsearchEngine {
+  overflow: visible;
+}
+
+#GPshowSearchEngine + label + #GPsearchInput {
+  max-width: 0px;
+}
+
+#GPlayerSwitcher label {
+  display: block;
+}
+
+/* Showing/hiding search engine input */
+
+#GPshowSearchEngine {
+  display: none;
+}
+
+#GPshowSearchEnginePicto {
+  display: inline-block;
+  transition: border-radius 0s ease-out 0s;
+  transition-delay: 0.5s;
+}
+
+#GPshowSearchEngine:checked + label {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  transition-delay: 0s;
+}
+
+#GPshowSearchEngine + label + #GPsearchInput {
+  max-width: 0px;
+  border: none;
+  transition: max-width 0.5s ease-out 0s;
+}
+
+#GPshowSearchEngine:checked + label + #GPsearchInput {
+  max-width: 280px;
+}
+
+#GPshowSearchEngine + label + #GPsearchInput + #GPshowAdvancedSearch {
+  display: none;
+}
+
+#GPshowSearchEngine:checked + label + #GPsearchInput + #GPshowAdvancedSearch {
+  display: inline-block;
+}
+
+#GPautoCompleteList {
+  display: none;
+}
+
+#GPshowSearchEngine:checked + label + #GPsearchInput + #GPautoCompleteList {
+  display: block;
+}
+
+/* Simple search input */
+
+#GPsearchInput {
+  display: inline-block;
+  position: relative;
+  left: -3px;
+  width: 280px;
+  overflow: hidden;
+}
+
+#GPsearchInput input {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #999;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 0;
+  padding-right: 30px;
+  padding-left: 5px;
+  color: #333;
+  font-size: 1.0em;
+}
+
+#GPsearchInput input:disabled {
+  background-color: #DDD;
+  color: #999;
+}
+
+#GPsearchInputReset {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 32px;
+  background-position: -30px 0;
+  cursor: pointer;
+}
+
+/* General panels */
+
+#GPgeocodeResultsClose,
+#GPadvancedSearchClose {
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 32px;
+}
+
+#GPgeocodeResultsClose {
+  background-position: 0 0;
+}
+
+#GPadvancedSearchClose {
+  background-repeat: no-repeat;
+}
+
+/* Advanced search picto */
+
+#GPshowAdvancedSearch {
+  transition: border-radius 0s ease-out 0s;
+  transition-delay: 0.5s;
+}
+
+/* Advanced search panel */
+
+#GPadvancedSearchPanel {
+  display: none;
+  width: 280px;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+#GPadvancedSearchForm {
+  max-height: 220px;
+  overflow-y: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.GPadvancedSearchCodeLabel,
+.GPadvancedSearchFilterLabel {
+  max-width: 105px;
+}
+
+.GPadvancedSearchCodeLabel,
+.GPadvancedSearchCode,
+ #GPadvancedSearchFilters{
+  margin-top: 15px;
+}
+
+.GPadvancedSearchFilterLabel,
+.GPadvancedSearchFilterInput {
+  margin-bottom: 5px;
+}
+
+input#GPadvancedSearchSubmit {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+/* Autocomplete list / geocode results */
+
+#GPautoCompleteList,
+#GPgeocodeResultsList {
+  width: 280px;
+}
+
+#GPautoCompleteList {
+  top: 35px;
+}
+
+#GPgeocodeResultsList {
+  display: none;
+  position: absolute;
+  top: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#GPgeocodeResults {
+  background-color: #FFF;
+  max-height: 140px;
+  overflow-y: auto;
+}
+.GPwidget {
+  position: relative; /* overwritten */
+}
+
+
+#GPadvancedToolsPanel {
+  position: initial; /* overwritten */
+}
+
+/* General panels */
+
+.GPpanel {
+  box-shadow: 0 1px 5px #000;
+  border-radius: 5px;
+}
+
+.GPpanelHeader {
+  height: 32px;
+  background-color: #FFF;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.GPpanelTitle {
+  width: calc(100% - 60px);
+  margin: auto;
+  line-height: 32px;
+  color: #C77A04;
+  border-bottom: 1px solid #C77A04;
+}
+
+.GPpanelClose {
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 32px;
+  background-position: -30px 1px;
+}
+
+/* Showing/hiding advanced panel */
+
+.GPshowAdvancedToolPicto {
+  width: 30px;
+  height: 30px;
+  box-shadow: 0 1px 5px #000;
+  background-color: #FFF;
+  border-radius: 5px;
+}
+
+.GPshowAdvancedToolPicto:hover {
+  background-color: #F4F4F4;
+}
+
+.GPshowAdvancedToolOpen {
+  width: 100%;
+  height: 100%;
+}
+
+/* Submit inputs */
+
+input.GPinputSubmit {
+  background-color: #C77A04;
+}
+
+/* Showing additional hidden options */
+
+.GPshowMoreOptions {
+  background-image: url("img/GPshowMoreOptions.png");
+}
+
+/* ISOCHRON */
+
+#GPadvancedToolsPanel {
+  left: 10px;
+}
+
+/* Showing/hiding isochron panel */
+
+#GPshowIsochronPicto {
+  margin-bottom: 10px;
+}
+
+#GPshowIsochronOpen {
+  background-image: url("img/GPisochronOpen.png");
+}
+
+/* General panels */
+
+#GPisochronPanel {
+  left: 10px;
+}
+
+#GPisochronPanelClose {
+  background-image: url("img/GPisochronOpen.png");
+}
+
+/* Isochron form */
+
+.GPisochronChoiceAlt input:checked + label + span {
+  color: #C77A04;
+}
+
+.GPisochronOriginPointerImg,
+.GPisochronChoiceAltImg,
+.GPisochronTransportImg {
+  background-image: url("img/GPisochronOptions.png");
+}
+/* LAYER SWITCHER LEAFLET */
+
+#GPlayerSwitcher {
+  top: 10px;
+  right: 10px;
+}
+
+/* Showing/hiding layers list */
+
+#GPshowLayersListPicto {
+  width: 36px;
+  height: 36px;
+}
+
+#GPshowLayersListOpen,
+#GPshowLayersListClose {
+  background-image: url("img/GPshowLayersList.png");
+}
+
+#GPshowLayersListClose {
+  background-position: -36px 0;
+}
+
+#GPlayerSwitcher input[type="checkbox"]:checked + div + #GPshowLayersListPicto {
+  box-shadow: 0 2px 2px #000;
+  border-top: 1px solid #CCC;
+}
+
+#GPlayerSwitcher input[type="checkbox"]:checked + div + #GPshowLayersListPicto #GPshowLayersListOpen {
+  opacity: 0.4;
+}
+
+/* Layers list */
+
+.GPlayerVisibility,
+.GPshowLayerAdvancedTools,
+.GPlayerInfo,
+.GPlayerInfoOpened,
+.GPlayerRemove {
+  background-image: url("img/GPlayerTools.png");
+}
+
+/* Opacity slider : Chrome, Safari, Opera */
+
+.GPlayerOpacity input[type="range"]::-webkit-slider-runnable-track {
+  background: url("img/GPopacitySlider.png");
+}
+
+/* Opacity slider : Firefox */
+
+.GPlayerOpacity input[type="range"]::-moz-range-track {
+  background: url("img/GPopacitySlider.png");
+}
+
+/* Opacity slider : IE */
+
+.GPlayerOpacity input[type="range"]::-ms-track {
+  background: url("img/GPopacitySlider.png");
+}
+
+/* Layer info panel */
+
+#GPlayerInfoPanel {
+  right: 190px;
+}
+
+#GPlayerInfoTitle {
+  color: #C77A04;
+  border-bottom: 1px solid #C77A04;
+}
+
+#GPlayerInfoQuicklook {
+  background-image: url("img/GPlayerInfo.png");
+}
+
+#GPlayerInfoClose {
+  background-image: url("img/GPlayerInfoClose.png");
+}
+
+.GPlayerInfoLink,
+.GPlayerInfoPopup {
+  background-image: url("img/GPlayerInfo.png");
+}
+
+/* MOUSE POSITION */
+
+#GPmousePosition {
+  /* bottom: 10px; */
+  /* left: 10px; */
+}
+
+/* Showing/hiding mouse position panel */
+
+#GPshowMousePositionOpen {
+  background-image: url("img/GPmousePositionOpen.png");
+}
+
+/* General panels */
+
+#GPmousePositionPanelClose {
+  background-image: url("img/GPmousePositionOpen.png");
+}
+
+/* Map center localisation */
+
+#GPmapCenter {
+  background-image: url("img/GPmapCenter.png");
+}
+
+/* REVERSE GEOCODING */
+
+#GPadvancedToolsPanel {
+  left: 10px;
+}
+
+/* Showing/hiding reverse geocoding panel */
+
+#GPshowReverseGeocodingPicto {
+  margin-bottom: 10px;
+}
+
+#GPshowReverseGeocodingOpen {
+  background-image: url("img/GPreverseGeocodingOpen.png");
+}
+
+/* General panels */
+
+#GPreverseGeocodingPanel {
+  left: 10px;
+}
+
+#GPreverseGeocodingPanelClose {
+  background-image: url("img/GPreverseGeocodingOpen.png");
+}
+/* ISOCHRON */
+
+#GPadvancedToolsPanel {
+  left: initial; /* overwritten */
+}
+
+/* Showing/hiding route panel */
+
+#GPshowRoutePicto {
+  margin-bottom: 10px;
+}
+
+#GPshowRouteOpen {
+  background-image: url("img/GProuteOpen.png");
+}
+
+/* General panels */
+
+#GProutePanel {
+  left: initial; /* overwritten */
+  top : initial; /* overwritten */
+}
+
+#GProutePanelClose {
+  background-image: url("img/GProuteOpen.png");
+}
+
+/* Route form */
+
+.GProuteOriginPointerImg,
+.GProuteStageRemove,
+#GProuteStageAdd,
+.GProuteTransportImg {
+  background-image: url("img/GProuteOptions.png");
+}
+
+.GProuteExclusionsOption {
+  background-image: url("img/GProuteCheck.png");
+}
+
+/* Results panel */
+
+#GProuteResultsValueDist,
+#GProuteResultsValueTime {
+  color: #C77A04;
+}
+
+#GProuteResultsNew {
+  background-color: #C77A04;
+  background-image: url("img/GProuteOptions.png");
+}
+
+#GProuteResultsShowDetails + label:hover,
+#GProuteResultsShowDetails + label + label:hover {
+  color: #C77A04;
+}
+
+/* SEARCH ENGINE */
+
+#GPsearchEngine {
+  top: 0px;
+  left: 0px;
+}
+
+/* Showing/hiding search engine input */
+
+#GPshowSearchEngineOpen {
+  background-image: url("img/GPsearchEngineOpen.png");
+}
+
+/* Simple search input */
+
+#GPsearchInput {
+  height: 30px;
+}
+
+#GPsearchInputReset {
+  background-image: url("img/GPsearchEngineClose.png");
+}
+
+/* General panels */
+
+#GPgeocodeResultsClose {
+  background-image: url("img/GPsearchEngineClose.png");
+}
+
+#GPadvancedSearchClose {
+  background-image: url("img/GPsearchEngineOpen.png");
+  background-position: -60px 0;
+}
+
+/* Advanced search picto */
+
+#GPshowAdvancedSearchOpen {
+  background-image: url("img/GPsearchEngineOpen.png");
+  background-position: -30px 0;
+}
+
+/* Autocomplete list / geocode results */
+
+#GPautoCompleteList,
+#GPgeocodeResultsList {
+  margin-left: 27px;
+  box-shadow: 0 1px 5px #000;
+}
+
+#GPgeocodeResultsList {
+  top: 38px;
+  border-radius: 5px;
+}
